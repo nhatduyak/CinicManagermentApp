@@ -1,3 +1,5 @@
+@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
 @model AddUserRoleModel
 @{
     ViewData["Title"] = "Gán role";
@@ -71,4 +73,8 @@
     </script>
 
     <partial name="_ValidationScriptsPartial" />
+}
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
 }

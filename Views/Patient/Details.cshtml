@@ -1,0 +1,157 @@
+@using ClinicManagement.Menu
+@using ClinicManagement.Models
+@inject AdminSidebarService _AdminSidebarService
+@model ClinicManagement.Models.Patient
+
+@{
+    ViewData["Title"] = "Chi tiết bệnh nhân";
+    var straddr="";
+    int Countnumber=0;
+    List<prescriptions> listprescriptions=ViewBag.prescriptionsList as List<prescriptions>;
+}
+
+
+
+
+    <div class="col-xl-8 col-lg-12 col-md-12 text-center w220 mx-auto">
+                        <div class="card teacher-card mb-3 flex-column">
+                            <div class="card-body d-flex teacher-fulldeatil flex-column">
+                                <div class="profile-teacher text-center w220 mx-auto">
+                                    <a href="#">
+                                        <img src="~/images/patient.png" width="200" height="200" alt="" class="avatar xl rounded-circle img-thumbnail shadow-sm">
+                                    </a>
+                                    <div class="about-info d-flex align-items-center mt-3 justify-content-center flex-column">
+                                        <span class="text-muted small">Bệnh nhân</span>
+                                    </div>
+                                </div>
+                                <div class="teacher-info   w-100">
+                                    <h6 class="mb-0 mt-2  fw-bold d-block fs-6 text-center">@Model.FullName</h6>
+                                    <span class="py-1 fw-bold small-11 mb-0 mt-1 text-muted text-center mx-auto d-block">@Model.Age Tuổi , @Model.address?.City</span>
+                                     @if(Model.address!=null)
+                                     { straddr= @Model.address?.Street+" - "+@Model.address?.City+" - "+@Model.address.Province+" - "+@Model.address.Post_Code ;}
+                                    <p class="mt-2">Địa chỉ :@straddr</p>
+                                     <p class="mt-2">Phone : @Model.Phone </p>
+                                     <p class="mt-2">Email : @Model.Email </p>
+                                    @* <div class="row g-2 pt-2">
+                                        <div class="col-xl-12">
+                                            <div class="d-flex align-items-center">
+                                                <i class="icofont-ui-touch-phone"></i>
+                                                <span class="ms-2">@Model.Phone </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12">
+                                            <div class="d-flex align-items-center">
+                                                <i class="icofont-email"></i>
+                                                <span class="ms-2">@Model.Email</span>
+                                            </div>
+                                        </div> *@
+                                        @* <div class="col-xl-12">
+                                            <div class="d-flex align-items-center">
+                                                <i class="icofont-birthday-cake"></i>
+                                                <span class="ms-2">@DateTime.Now.AddYears(Model.Age?*-1))</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12">
+                                            <div class="d-flex align-items-center">
+                                                <i class="icofont-address-book"></i>
+                                                <span class="ms-2">2734  West Fork Street,EASTON 02334.</span>
+                                            </div>
+                                        </div> *@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                @if(listprescriptions?.Count>0)
+                    @foreach (prescriptions prescriptions in listprescriptions)
+                    {                       
+                   
+
+                        <div class="card my-3 text-center">
+                                        @* <div class="card-header py-3 d-flex justify-content-center bg-transparent border-bottom-0 text-center">
+                                            <h3 class="mb-0 fw-bold text-center">Đơn thuốc</h3>
+                                        </div>
+                                        <div class="card-body" style="position: relative;">
+                                            <div class="d-flex justify-content-end text-center">
+                                                @foreach (var item in ViewBag.prescriptionsList)
+                                                {
+                                                    
+                                                }
+                                            </div>
+
+                                        
+                                        
+                                    
+                                </div> *@
+
+                                <div class="card-header text-center bg-success">
+            <h3>Đơn thuốc - @prescriptions.Patient.FullName -@prescriptions.DateCreate?.ToString("dd/MM/yyyy")</h3>
+        </div>
+        <div class="card-body text-center align-self-center">
+            <table id="codetable" class="table-bordered table-sm mb-0 pb-0">
+                    <thead class="bg-warning">
+                        <tr>
+                            <th>
+                                STT
+                            </th>
+                             <th style="width: 200px;">
+                                Tên thuốc
+                            </th>
+                             <th>
+                                Số Ngày uống
+                            </th>
+                             <th>
+                                Thời gian uống
+                            </th>
+                             <th>
+                                Uống trước ăn?
+                            </th>                             
+                             @* <th style="width: 60px;">
+                                <button id="btnAddDetailRow" type="button" class="btn btn-sm btn-success visible" onclick="AddItem(this)">Thêm</button>
+                                </th> *@
+                        </tr>
+                        <tbody>
+                           
+                            @for (int i = 0; i < @prescriptions.PrescriptionsDetail.Count; i++)                         
+                            {
+                                Countnumber++;
+                                <tr>
+                                    <td>
+                                        @* <input type="hidden" asp-for="@Model.PrescriptionsDetail[i].ID" /> *@
+                                        <label asp-for="@prescriptions.PrescriptionsDetail[i].CountNum" class="control-label">@Countnumber</label>
+                                    </td>
+                                    <td>
+                                     <select asp-for="@prescriptions.PrescriptionsDetail[i].MedicinesID" class="form-control w-180" asp-items="ViewBag.MedicinesID"></select>
+                                    </td>
+                                    <td>
+                                        <input asp-for="@prescriptions.PrescriptionsDetail[i].No_of_day" class="form-control w-60" />
+                                        <span asp-validation-for="@prescriptions.PrescriptionsDetail[i].No_of_day" class="text-danger"></span>
+                                    </td>
+                                     <td>
+                                     <select asp-for="@prescriptions.PrescriptionsDetail[i].When_To_Take" class="form-control" asp-items="ViewBag.When_To_Take"></select>
+                                    </td>
+                                    <td>
+                                        <input asp-for="@prescriptions.PrescriptionsDetail[i].is_Before_Meal" class="form-control" />
+                                    </td>
+                                 
+                                </tr>
+                            }
+                        </tbody>
+                    </thead>
+                </table>
+        </div>         
+                    </div>
+        }
+   
+    
+<div class="text-center">
+   <div class="btn-group">
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.ID">Chỉnh sửa</a>
+    <a class="btn btn-secondary" asp-action="index"
+       asp-route-pg="@TempData["CurrentPage"]">Danh sách bệnh nhân</a>    
+</div>
+</div>
+
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}

@@ -1,0 +1,129 @@
+@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
+@model ClinicManagement.Models.prescriptions
+
+@{
+    ViewData["Title"] = "Xóa đơn thuốc";
+    var Countnumber=1;
+}
+
+<h3>Bạn muốn xóa đơn thuốc này?</h3>
+<div>
+  
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.code)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.code)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Patient.FullName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Patient.FullName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Doctor.FullName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.FullName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NextVisit)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NextVisit)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.advice)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.advice)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateCreate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateCreate)
+        </dd class>
+       
+    </dl>
+    <div class="card mb-4">
+        <div class="card-header text-center bg-success">
+            <h3>Đơn thuốc - @Model.Patient.FullName -@Model.DateCreate?.ToString("dd/MM/yyyy")</h3>
+        </div>
+        <div class="card-body">
+            <table id="codetable" class="table-bordered table-sm mb-0 pb-0">
+                    <thead class="bg-warning">
+                        <tr>
+                            <th>
+                                STT
+                            </th>
+                             <th style="width: 200px;">
+                                Tên thuốc
+                            </th>
+                             <th>
+                                Số Ngày uống
+                            </th>
+                             <th>
+                                Thời gian uống
+                            </th>
+                             <th>
+                                Uống trước ăn?
+                            </th>                             
+                             @* <th style="width: 60px;">
+                                <button id="btnAddDetailRow" type="button" class="btn btn-sm btn-success visible" onclick="AddItem(this)">Thêm</button>
+                                </th> *@
+                        </tr>
+                        <tbody>
+                           
+                            @for (int i = 0; i < @Model.PrescriptionsDetail.Count; i++)                         
+                            {
+                                Countnumber++;
+                                <tr>
+                                    <td>
+                                        @* <input type="hidden" asp-for="@Model.PrescriptionsDetail[i].ID" /> *@
+                                        <label asp-for="@Model.PrescriptionsDetail[i].CountNum" class="control-label">@Countnumber</label>
+                                    </td>
+                                    <td>
+                                     <select asp-for="@Model.PrescriptionsDetail[i].MedicinesID" class="form-control w-180" asp-items="ViewBag.MedicinesID"></select>
+                                    </td>
+                                    <td>
+                                        <input asp-for="@Model.PrescriptionsDetail[i].No_of_day" class="form-control w-60" />
+                                        <span asp-validation-for="@Model.PrescriptionsDetail[i].No_of_day" class="text-danger"></span>
+                                    </td>
+                                     <td>
+                                     <select asp-for="@Model.PrescriptionsDetail[i].When_To_Take" class="form-control" asp-items="ViewBag.When_To_Take"></select>
+                                    </td>
+                                    <td>
+                                        <input asp-for="@Model.PrescriptionsDetail[i].is_Before_Meal" class="form-control" />
+                                    </td>
+                                 
+                                </tr>
+                            }
+                        </tbody>
+                    </thead>
+                </table>
+        </div>         
+    </div>
+    
+      <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+        <a class="btn btn-secondary" asp-action="index"
+            asp-route-pg="@TempData.Peek("CurrentPage")">Danh sách đơn thuốc</a>
+    </form>
+</div>
+
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}
+

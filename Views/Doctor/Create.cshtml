@@ -1,0 +1,149 @@
+@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
+@* @model ClinicManagement.Models.Patient *@
+@model ClinicManagement.Controllers.DoctorController.doctordata
+
+@{
+    ViewData["Title"] = "Thêm mới bác sĩ";
+
+}
+<partial name="_StatusMessage" />
+
+
+<div class="card-header bg-success text-uppercase text-white text-center mb-2 pb-4" style="height: 25px;">
+    <h6>@ViewData["Title"]</h6>
+</div>
+
+<form asp-action="Create">
+    <div class="row col-12">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group col-2">
+                <label asp-for="@Model.datadoctor.FName" class="control-label"></label>                
+            </div>
+            <div class="form-group col-3">
+                <input asp-for="@Model.datadoctor.FName" class="form-control" />
+                <span asp-validation-for="@Model.datadoctor.FName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-2"></div>
+
+             <div class="form-group col-2">
+                <label asp-for="@Model.datadoctor.LName" class="control-label"></label>                
+            </div>
+            <div class="form-group col-3">
+                <input asp-for="@Model.datadoctor.LName" class="form-control" />
+                <span asp-validation-for="@Model.datadoctor.LName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-2">
+                <label asp-for="@Model.datadoctor.Age" class="control-label"></label>                
+            </div>
+            <div class="form-group col-3">
+                <input type="number" asp-for="@Model.datadoctor.Age" class="form-control" />
+                <span asp-validation-for="@Model.datadoctor.Age" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-2"></div>
+
+             <div class="form-group col-2">
+                <label asp-for="@Model.datadoctor.Phone" class="control-label"></label>                
+            </div>
+            <div class="form-group col-3">
+                <input asp-for="@Model.datadoctor.Phone" class="form-control" />
+                <span asp-validation-for="@Model.datadoctor.Phone" class="text-danger"></span>
+            </div>
+
+             <div class="form-group col-2">
+                <label asp-for="@Model.datadoctor.Email" class="control-label"></label>                
+            </div>
+            <div class="form-group col-3">
+                <input asp-for="@Model.datadoctor.Email" class="form-control" />
+                <span asp-validation-for="@Model.datadoctor.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-2"></div>
+
+
+            <div class="form-group col-2">
+                <label asp-for="@Model.datadoctor.GenderID" class="control-label"></label>
+            </div>
+             <div class="form-group col-3">
+                <select asp-for="@Model.datadoctor.GenderID" class ="form-control" asp-items="ViewBag.GenderID"></select>
+            </div>
+            <div class="form-group col-2">
+                <label asp-for="@Model.datadoctor.BloodGroupID" class="control-label"></label>
+            </div>
+            <div class="form-group col-3">
+                <select asp-for="@Model.datadoctor.BloodGroupID" class ="form-control" asp-items="ViewBag.BloodGroupID"></select>
+            </div>
+            <div class="form-group col-7"></div>
+
+
+<div class="card-header bg-warning text-uppercase text-white text-center mb-2 pb-4 col-12" style="height: 25px;">
+    <h7>Thông tin địa chỉ bác sĩ</h7>
+</div>
+
+            <div class="form-group col-2">
+                <label asp-for="@Model.Street" value="Tên đường" class="control-label"></label>                
+            </div>
+            <div class="form-group col-3">
+                <input id="streetid" name="Street" asp-for="@Model.Street" class="form-control" />
+                <span asp-validation-for="@Model.Street" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-2"></div>
+
+             <div class="form-group col-2">
+                <label asp-for="@Model.city" value="Thành phố" class="control-label"></label>                
+            </div>
+            <div class="form-group col-3">
+                <input id="cityid"  name="City" asp-for="@Model.city" class="form-control" />
+                <span asp-validation-for="@Model.city" class="text-danger"></span>
+            </div>
+            <div class="form-group col-2">
+                <label asp-for="@Model.province" value="Tỉnh Thành" class="control-label"></label>                
+            </div>
+            <div class="form-group col-3">
+                <input id="provinceid" asp-for="@Model.province" class="form-control" />
+                <span asp-validation-for="@Model.province" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-2"></div>
+
+             <div class="form-group col-2">
+                <label asp-for="@Model.Post_Code" value="Mã bưu điện" class="control-label"></label>                
+            </div>
+            <div class="form-group col-3">
+                <input id="postcodeid" asp-for="@Model.Post_Code"  class="form-control" />
+                <span asp-validation-for="@Model.Post_Code" class="text-danger"></span>
+            </div>
+
+<div class="col-12">
+
+</div>            
+           
+             <div class="form-group btn-group col-12">
+                <div class="col-1"></div>
+                <div class="col-5">
+                <input type="submit" value="Thêm mới" class="btn btn-primary btn-block" />
+                </div>
+                <div class="col-5">
+                 <a class="btn btn-secondary btn-block" asp-action="index"
+                   asp-route-pg="@TempData.Peek("CurrentPage")">danh sách bác sĩ</a>
+                </div>
+            </div>
+           
+    </div>
+</form>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
+
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}

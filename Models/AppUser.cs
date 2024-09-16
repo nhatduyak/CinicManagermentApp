@@ -7,9 +7,9 @@ namespace ClinicManagement.Models
 {
     public class AppUser : IdentityUser
     {
-        //  [Column(TypeName = "nvarchar")]
-        //   [StringLength(400)]  
-        //   public string HomeAdress { get; set; }
+          public int? DoctorID { get; set; }
+          [ForeignKey("DoctorID")]
+          public virtual Doctor Doctor{get;set;}
 
         //   // [Required]       
         //   [DataType(DataType.Date)]

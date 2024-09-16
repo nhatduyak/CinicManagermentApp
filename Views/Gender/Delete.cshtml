@@ -1,0 +1,41 @@
+@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
+@model ClinicManagement.Models.Gender
+
+@{
+    ViewData["Title"] = "Xóa giới tính";
+}
+
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <div class="text-danger btn-group" asp-validation-summary="ModelOnly" ></div>
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Xóa" class="btn btn-danger" />
+        <a class="btn btn-secondary" asp-action="index"
+            asp-route-pg="@TempData.Peek("CurrentPage")">Danh sách giới tính</a>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}

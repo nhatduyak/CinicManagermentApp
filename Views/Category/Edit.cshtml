@@ -1,0 +1,51 @@
+@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
+@model ClinicManagement.Models.Category
+
+@{
+    ViewData["Title"] = "Chỉnh sửa danh mục";
+}
+
+@* <h1>Edit</h1> *@
+<partial name="_StatusMessage" />
+
+<h4>Danh mục</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="ParentCategoryID" class="control-label"></label>
+                <select asp-for="ParentCategoryID" class="form-control" asp-items="ViewBag.ParentCategoryID"></select>
+                <span asp-validation-for="ParentCategoryID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descriptions" class="control-label"></label>
+                <input asp-for="Descriptions" class="form-control" />
+                <span asp-validation-for="Descriptions" class="text-danger"></span>
+            </div>            
+            <div class="form-group">
+                <input type="submit" value="cập nhật" class="btn btn-primary" />
+                    <a class="btn btn-secondary" asp-action="index"
+                   asp-route-pg="@TempData.Peek("CurrentPage")">Danh sách danh mục</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}

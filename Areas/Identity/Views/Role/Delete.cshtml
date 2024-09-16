@@ -1,3 +1,5 @@
+@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
 @model IdentityRole
 @{
     ViewData["Title"] = "Xóa role";
@@ -24,4 +26,8 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
 }

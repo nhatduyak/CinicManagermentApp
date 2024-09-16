@@ -1,4 +1,6 @@
-﻿@model ManageLoginsViewModel
+﻿@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
+@model ManageLoginsViewModel
 @using Microsoft.AspNetCore.Authentication
 @{
     ViewData["Title"] = "Liên kết tài khoản";
@@ -51,4 +53,9 @@
             </p>
         </div>
     </form>
+}
+
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
 }

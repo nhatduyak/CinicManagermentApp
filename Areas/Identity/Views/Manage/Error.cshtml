@@ -1,4 +1,6 @@
-﻿@{
+﻿@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
+@{
     ViewData["Title"] = "Có lỗi";
 }
 
@@ -8,3 +10,7 @@
         Lỗi không hoàn thành được tác vụ
     </p>
 </div>
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}

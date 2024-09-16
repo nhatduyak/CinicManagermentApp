@@ -1,4 +1,4 @@
-﻿@{
+﻿@* @{
     var StatusMessage= TempData["StatusMessage"] as string;
 }
 
@@ -8,5 +8,17 @@
     <div class="alert alert-@statusMessageClass alert-dismissible" role="alert">
         <button type="button" class="btn-close" data-dismiss="alert"></button>
         @StatusMessage
+    </div>
+} *@
+@{
+    var mgs = TempData["StatusMessage"] as string;
+}
+
+@if (!String.IsNullOrEmpty(mgs))
+{
+    var statusMessageClass = mgs.StartsWith("Error") ? "danger" : "success";
+    <div class="alert alert-@statusMessageClass alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @mgs
     </div>
 }

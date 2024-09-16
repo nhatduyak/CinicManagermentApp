@@ -39,6 +39,7 @@ namespace ClinicManagement.Areas.Identity.Controllers
 
         //
         // GET: /Manage/Index
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Index(ManageMessageId? message = null)
         {
@@ -52,6 +53,8 @@ namespace ClinicManagement.Areas.Identity.Controllers
                 : "";
 
             var user = await GetCurrentUserAsync();
+            if(user==null)
+            return RedirectToAction("Login","Account");
             var model = new IndexViewModel
             {
                 HasPassword = await _userManager.HasPasswordAsync(user),

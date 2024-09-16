@@ -1,3 +1,5 @@
+@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
 @model List<RoleModel>
 @{
     ViewData["Title"] = "Danh sách các role (vai trò)";
@@ -34,3 +36,8 @@
         </tr>
     }
 </table>
+
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}

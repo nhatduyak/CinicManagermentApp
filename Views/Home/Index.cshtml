@@ -1,13 +1,83 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-<partial name="_StatusMessage"/>
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <h1 class="text-center"><i class="fas fa-comment-dollar text-success"></i> Transaction History</h1>
+﻿@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
+@{
 
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-<div>
-    @* <a onclick="showInPopup('@Url.Action("AddOrEdit","Transaction",null,Context.Request.Scheme)','New Transaction')" class="btn fas fa btn-success text-white"><i class="fas fa-random"></i> New Transaction</a> *@
-</div>
+
+
+    ViewData["Title"] = "Dashboard";
+
+
+
+    Layout = "_LayoutAdmin";
+}
+<partial name="_StatusMessage" />
+
+@* <div class="main_content_iner ">
+    <div class="container-fluid p-0">
+        <div class="row justify-content-center">
+            <div class="single_element">
+                <div class="quick_activity">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="quick_activity_wrap">
+                                <div class="single_quick_activity d-flex">
+                                    <div class="icon">
+                                        <img src="images/man.svg" alt="">
+                                    </div>
+                                    <div class="count_content">
+                                        <h3><span class="counter">520</span> </h3>
+                                        <p>Doctors</p>
+                                    </div>
+                                </div>
+                                <div class="single_quick_activity d-flex">
+                                    <div class="icon">
+                                        <img src="images/cap.svg" alt="">
+                                    </div>
+                                    <div class="count_content">
+                                        <h3><span class="counter">6969</span> </h3>
+                                        <p>Nurses</p>
+                                    </div>
+                                </div>
+                                <div class="single_quick_activity d-flex">
+                                    <div class="icon">
+                                        <img src="images/wheel.svg" alt="">
+                                    </div>
+                                    <div class="count_content">
+                                        <h3><span class="counter">7509</span> </h3>
+                                        <p>Patients</p>
+                                    </div>
+                                </div>
+                                <div class="single_quick_activity d-flex">
+                                    <div class="icon">
+                                        <img src="images/pharma.svg" alt="">
+                                    </div>
+                                    <div class="count_content">
+                                        <h3><span class="counter">2110</span> </h3>
+                                        <p>Pharmacusts</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+</div> *@
+
+
+@*
+    <div class="card">
+    <div class="card-header">
+    <p>Danh sach benh nhan</p>
+    </div>
+    </div>
+*@
+
+
+@section Sidebar
+{
+@Html.Raw(_AdminSidebarService.renderHtml())
+}

@@ -1,4 +1,6 @@
-﻿@model DisplayRecoveryCodesViewModel
+﻿@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
+@model DisplayRecoveryCodesViewModel
 @{
     ViewData["Title"] = "Mã phục hồi";
 }
@@ -20,3 +22,8 @@
         }
     </dl>
 </div>
+
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}

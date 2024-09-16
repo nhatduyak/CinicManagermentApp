@@ -1,3 +1,5 @@
+@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
 @model AddUserClaimModel
 @{
     ViewData["Title"] = "Claim của user";
@@ -45,4 +47,8 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
 }

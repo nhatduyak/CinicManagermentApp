@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using ClinicManagement.Models;
 using ClinicManagement.Areas.Identity.Models.RoleViewModels;
 
 namespace ClinicManagement.Areas.Identity.Controllers

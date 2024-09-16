@@ -1,0 +1,50 @@
+@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
+@model ClinicManagement.Models.ClinicInfo
+
+@{
+    ViewData["Title"] = "Chi tiết thông tin phòng khám";
+}
+
+<partial name="_StatusMessage" />
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div>    
+    <hr />
+
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+    </dl>
+</div>
+<div class="btn-group">
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.ID">Chỉnh sửa</a>
+    <a class="btn btn-secondary" asp-action="index"
+       asp-route-pg="@TempData["CurrentPage"]">Danh sách thông tin phòng khám</a>    
+</div>
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}

@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using ClinicManagement.Areas.Identity.Models.AccountViewModels;
+using ClinicManagement.Data;
 using ClinicManagement.ExtendMethods;
 using ClinicManagement.Models;
 using ClinicManagement.Utilities;
@@ -110,7 +111,8 @@ namespace ClinicManagement.Areas.Identity.Controllers
         //
         // GET: /Account/Register
         [HttpGet]
-        [AllowAnonymous]
+        // [AllowAnonymous]
+        [Authorize(Roles=RoleName.Administrator)]
         public IActionResult Register(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
@@ -120,7 +122,8 @@ namespace ClinicManagement.Areas.Identity.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        // [AllowAnonymous]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {

@@ -1,4 +1,6 @@
-﻿@model AddPhoneNumberViewModel
+﻿@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
+@model AddPhoneNumberViewModel
 @{
     ViewData["Title"] = "Thêm số điện thoại";
 }
@@ -24,4 +26,8 @@
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
 }

@@ -1,4 +1,6 @@
-﻿@model VerifyPhoneNumberViewModel
+﻿@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
+@model VerifyPhoneNumberViewModel
 @{
     ViewData["Title"] = "Xác nhận số điện thoại";
 }
@@ -27,4 +29,8 @@
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
 }

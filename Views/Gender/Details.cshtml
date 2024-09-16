@@ -1,0 +1,38 @@
+@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
+@model ClinicManagement.Models.Gender
+
+@{
+    ViewData["Title"] = "Chi tiết giới tính";
+}
+
+<partial name="_StatusMessage" />
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div>    
+    <hr />
+
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+</div>
+<div class="btn-group">
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.ID">Chỉnh sửa</a>
+    <a class="btn btn-secondary" asp-action="index"
+       asp-route-pg="@TempData["CurrentPage"]">Danh sách giới tính</a>    
+</div>
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}

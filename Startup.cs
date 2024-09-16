@@ -1,16 +1,24 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using ClinicManagement.Data;
+using ClinicManagement.Interfaces;
+using ClinicManagement.Menu;
 using ClinicManagement.Models;
+using ClinicManagement.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+
 
 namespace ClinicManagement
 {
@@ -28,7 +36,9 @@ namespace ClinicManagement
         {
             services.AddControllersWithViews();
             services.AddDbContext<ClinicManagementDbContext>(options=>{
-                options.UseSqlServer(Configuration.GetConnectionString("AppDbContext"));
+                options.UseLazyLoadingProxies()
+                        .UseSqlServer(Configuration.GetConnectionString("AppDbContext"));
+                        // .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
 
               // Dang ky Identity
@@ -75,6 +85,33 @@ namespace ClinicManagement
                 options.AccessDeniedPath = "/khongduoctruycap.html";
             });  
 
+              services.AddAuthorization(options => {
+                    options.AddPolicy("ViewManageMenu", builder => {
+                        builder.RequireAuthenticatedUser();
+                        builder.RequireRole(RoleName.Administrator);
+                    });
+                });
+                           // services.AddTransient<CartService>();
+services.AddOptions();
+            var mailsetting = Configuration.GetSection("MailSettings");
+            services.Configure<MailSettings>(mailsetting);
+            services.AddSingleton<IEmailSender, SendMailService>();
+
+                            services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
+                services.AddTransient<AdminSidebarService>();
+                services.AddScoped<IUnit, UnitRepository>();   
+                services.AddScoped<ICategory, CategoryRepository>();      
+                services.AddScoped<IManufacture, ManufactureRepository>(); 
+                services.AddScoped<IMedicines, MedicinesRepositories>();                    
+                services.AddScoped<IAddress, AddressRepository>();     
+                services.AddScoped<IBloodGroup, BoolGroupRepository>();     
+                services.AddScoped<IGender, GenderRepository>();     
+                services.AddScoped<IPatient, PatientRepository>();     
+                services.AddScoped<IDoctor, DoctorRepository>();     
+                services.AddScoped<IClinicInfo, ClinicInfoRemository>(); 
+                services.AddTransient<Iprescriptions, PrescriptionsRepositories>(); 
+                services.AddTransient<IPrescriptionDetail, PrescriptionDetailRepository>();     
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,6 +129,16 @@ namespace ClinicManagement
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            // // /contents/1.jpg => Uploads/1.jpg
+            // app.UseStaticFiles(new StaticFileOptions() {
+            //     FileProvider = new PhysicalFileProvider(
+            //         Path.Combine(Directory.GetCurrentDirectory(), "Uploads")
+            //     ),
+            //     RequestPath = "/contents"
+            // });
+
+            // app.UseSession();
 
             app.UseRouting();
 

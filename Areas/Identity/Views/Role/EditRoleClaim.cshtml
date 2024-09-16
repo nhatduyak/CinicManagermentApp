@@ -1,3 +1,6 @@
+
+@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
 @model EditClaimModel
 @{
     ViewData["Title"] = "Gán đặc tính cho role";
@@ -36,3 +39,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}

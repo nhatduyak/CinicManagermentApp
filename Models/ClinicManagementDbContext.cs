@@ -29,7 +29,59 @@ namespace ClinicManagement.Models
                 {
                     entityType.SetTableName(tableName.Substring(6));
                 }
-            }
+
+                builder.Entity<MedicinesCategory>(entity=>
+                {
+                    entity.HasKey(c=>new {c.CategoryID,c.MedicinesID});
+                });
+
+                 builder.Entity<MedicinesHistory>(entity=>
+                {
+                    entity.HasKey(c=>new {c.MedicinesID,c.PaymentHeaderID});
+                });
+
+                builder.Entity<Medicines>(enrity=>{
+                    enrity.HasIndex(c=>c.Code)
+                                    .IsUnique();
+                });
+                //  builder.Entity<PrescriptionDetail>(entity=>
+                // {
+                //     entity.HasKey(c=>new {c.ID,c.PrescriptionsID});
+                // });
+             
         }
+        }
+
+        public DbSet<Gender> Genders{get;set;}
+        public DbSet<BloodGroup> BloodGroups{get;set;}
+
+        public DbSet<Address> addresses{get;set;}
+
+        public DbSet<ClinicInfo> ClinicInfos{get;set;}
+
+        public DbSet<Patient> Patients{get;set;}
+
+        public DbSet<Unit> Units{get;set;}
+
+        public DbSet<Category> Categories{get;set;}
+
+        public DbSet<Manufacture> Manufactures{get;set;}
+
+        public DbSet<MedicinesCategory> MedicinesCategories{get;set;}
+
+        public DbSet<Medicines> Medicines {get;set;}
+
+        public DbSet<MedicinesHistory> MedicinesHistories{get;set;}
+
+        public DbSet<PaymentHeader> PaymentHeaders{get;set;}
+        
+        public DbSet<PaymentDetail> paymentDetails{get;set;}
+
+        public DbSet<PrescriptionDetail> prescriptionsDetails{get;set;}
+
+        public DbSet<prescriptions> Prescriptions{get;set;}
+
+        public DbSet<Doctor> Doctors{get;set;}
+
     }
 }

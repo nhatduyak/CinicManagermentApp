@@ -1,0 +1,150 @@
+@using ClinicManagement.Menu
+@inject AdminSidebarService _AdminSidebarService
+@model IEnumerable<ClinicManagement.Models.prescriptions>
+
+@{
+    ViewData["Title"] = "Danh Sách Đơn Thuốc";
+    SortModel sortModel = (SortModel)ViewData["sortModel"];
+
+    PagerModel pager = ViewBag.Pager;
+}
+<partial name="_StatusMessage" />
+
+<div class="container-fluid btn-group">
+<p>
+    <a asp-action="Create" class="btn btn-success"><i class="fas fa-plus"></i></a>
+</p>
+</div>
+<br/>
+<div class="row">
+    <div class="col-12">
+        <partial name="_topBar" model="@pager" />
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+             <th>
+                 <i class="@sortModel.GetColumn("code").SortIcon" arial-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("code").SortExpression">
+                    @Html.DisplayNameFor(model => model.code)
+
+                </a>
+            </th>
+            <th>
+                 <i class="@sortModel.GetColumn("pname").SortIcon" arial-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("pname").SortExpression">
+                    @Html.DisplayNameFor(model => model.Patient.FullName)
+
+                </a>
+            </th>
+            <th>
+                <i class="@sortModel.GetColumn("dname").SortIcon" arial-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("dname").SortExpression">
+                    @Html.DisplayNameFor(model => model.Doctor.FullName)
+
+                </a>
+            </th>
+            <th>
+                 <i class="@sortModel.GetColumn("datecreate").SortIcon" arial-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("datecreate").SortExpression">
+                    @Html.DisplayNameFor(model => model.advice)
+
+                </a>
+            </th>
+            <th>
+                 <i class="@sortModel.GetColumn("datecreate").SortIcon" arial-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("datecreate").SortExpression">
+                    @Html.DisplayNameFor(model => model.Note)
+
+                </a>
+            </th>
+            <th>
+                 <i class="@sortModel.GetColumn("datecreate").SortIcon" arial-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("datecreate").SortExpression">
+                    @Html.DisplayNameFor(model => model.NextVisit)
+
+                </a>
+            </th>
+           
+            <th>
+                 <i class="@sortModel.GetColumn("datecreate").SortIcon" arial-hidden="true"></i>
+                <a asp-action="Index" asp-route-sortExpression="@sortModel.GetColumn("datecreate").SortExpression">
+                    @Html.DisplayNameFor(model => model.DateCreate)
+
+                </a>
+            </th>            
+            </th> 
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+             <td>
+                @Html.DisplayFor(modelItem => item.code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doctor.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.advice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NextVisit)
+            </td>            
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreate)
+            </td>            
+            <td>
+                <div class="btn-group">
+                    <a asp-action="Generate" asp-route-id="@item.ID">
+                            <span class="btn btn-sm btn-outline-danger">
+                                <i class="fas fa-print" aria-hidden="true"></i> 
+                            </span>
+                        </a>
+
+                     <a asp-action="Edit" asp-route-id="@item.ID">
+                            <span class="btn btn-sm btn-outline-primary">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                        
+                        <a asp-action="Details" asp-route-id="@item.ID">
+                            <span class="btn btn-sm btn-outline-dark">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </span>
+                        </a>
+
+                        <a asp-action="Delete" asp-route-id="@item.ID">
+                            <span class="btn btn-sm btn-outline-danger">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                 </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-12">
+        <partial name="_bottomBar" model="@pager" />
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}

@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using ClinicManagement.Models;
-using ClinicManagement.Models;
-
 namespace ClinicManagement.Areas.Identity.Models.UserViewModels
 {
         public class UserListModel
